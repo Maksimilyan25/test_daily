@@ -5,9 +5,9 @@ from routers.routers import router
 app = FastAPI()
 
 
-@app.get('/')
+@app.get("/")
 async def main_page():
-    return {'message': 'Главная страница'}
+    return {"message": "Главная страница"}
 
 
 app.include_router(router)

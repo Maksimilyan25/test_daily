@@ -1,9 +1,10 @@
 # schemas.py
 from typing import List
+
 from pydantic import BaseModel, Field, field_validator
 
-
 # ========== Входные схемы ==========
+
 
 class DishSaleInput(BaseModel):
     """Схема одного блюда во входном запросе."""
@@ -13,9 +14,7 @@ class DishSaleInput(BaseModel):
     )
     cost_price: float = Field(..., description="Себестоимость", gt=0)
     selling_price: float = Field(..., description="Цена продажи", gt=0)
-    quantity: int = Field(
-        ..., description="Количество проданных порций", gt=0
-    )
+    quantity: int = Field(..., description="Количество проданных порций", gt=0)
 
     @field_validator("selling_price")
     @classmethod
@@ -75,6 +74,7 @@ class SalesRequest(BaseModel):
 
 # ========== Выходные схемы ==========
 
+
 class TopMarginDish(BaseModel):
     """Блюдо в топе по маржинальности."""
 
@@ -116,6 +116,7 @@ class SalesAnalysisResponse(BaseModel):
 
 
 # ========== Внутренние схемы для БД ==========
+
 
 class DishSaleDB(BaseModel):
     """Схема для сохранения в БД (расширенная версия DishSaleInput)."""

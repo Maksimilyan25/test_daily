@@ -23,16 +23,14 @@ repos:
     rev: 23.11.0
     hooks:
       - id: black
-        args: ["--line-length=88"]
-        files: '^app/.*\.py$'
+        args: ["--line-length=79"]
 
   # isort — сортировка импортов
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
     hooks:
       - id: isort
-        args: ["--profile", "black", "--line-length=88"]
-        files: '^app/.*\.py$'
+        args: ["--profile", "black", "--line-length=79"]
 
   # flake8 — линтер кода
   - repo: https://github.com/PyCQA/flake8
@@ -44,15 +42,6 @@ repos:
           - flake8-comprehensions
           - flake8-simplify
         args: [
-          "--max-line-length=88",
+          "--max-line-length=79",
           "--extend-ignore=E501,F401,E266,F841,B008,SIM102,SIM910,F821",
         ]
-        files: '^app/.*\.py$'
-
-  # pyupgrade — обновление синтаксиса
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
-    hooks:
-      - id: pyupgrade
-        args: ["--py312-plus"]
-        files: '^app/.*\.py$'
