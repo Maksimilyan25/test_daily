@@ -12,7 +12,7 @@ from sqlalchemy.orm import DeclarativeBase
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL", 'postgresql+asyncpg://testuser:Fidafo2611@db:5432/testdb')
 
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL не установлена")
