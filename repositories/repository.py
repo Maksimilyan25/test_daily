@@ -1,10 +1,11 @@
 # repositories/sales_repository.py
 from datetime import datetime
 from typing import List, Optional
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.models import DishSale, DailySalesSummary
+from models.models import DailySalesSummary, DishSale
 
 
 class SalesRepository:

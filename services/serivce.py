@@ -4,11 +4,7 @@ from typing import List, Tuple
 
 from models.models import DailySalesSummary
 from repositories.repository import SalesRepository
-from schemas.schemas import (
-    TopMarginDish,
-    LossMakingDish,
-    DishSaleInput,
-)
+from schemas.schemas import DishSaleInput, LossMakingDish, TopMarginDish
 
 
 class SalesService:
@@ -95,7 +91,9 @@ class SalesService:
         loss_making = []
         for dish in dishes_data:
             if dish["margin_percent"] < threshold:
-                target_margin = dish["total_revenue_per_dish"] * (threshold / 100)
+                target_margin = dish["total_revenue_per_dish"] * (
+                    threshold / 100
+                )
                 loss_amount = target_margin - dish["margin"]
                 loss_making.append(
                     LossMakingDish(
@@ -167,7 +165,9 @@ class SalesService:
 
         return list(dict.fromkeys(suggestions))
 
-    async def analyze_and_save(self, request_sales: List[DishSaleInput]) -> dict:
+    async def analyze_and_save(
+        self, request_sales: List[DishSaleInput]
+    ) -> dict:
         """
         Полный цикл анализа и сохранения продаж.
 

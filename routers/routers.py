@@ -1,16 +1,13 @@
 # routers/sales.py
 from datetime import datetime
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 
 from database.db import SessionDep
 from models.models import DailySalesSummary
-from schemas.schemas import (
-    SalesAnalysisResponse,
-    SalesRequest,
-)
 from repositories.repository import SalesRepository
+from schemas.schemas import SalesAnalysisResponse, SalesRequest
 from services.serivce import SalesService
 
 router = APIRouter(prefix="/sales", tags=["sales"])
@@ -31,10 +28,10 @@ def get_sales_service(session: SessionDep) -> SalesService:
 
 
 @router.post(
-        "/analyze_sales",
-        summary='Анализ продаж',
-        response_model=SalesAnalysisResponse
-    )
+    "/analyze_sales",
+    summary="Анализ продаж",
+    response_model=SalesAnalysisResponse,
+)
 async def analyze_sales(
     request: SalesRequest,
     service: SalesService = Depends(get_sales_service),
@@ -56,7 +53,7 @@ async def analyze_sales(
     return SalesAnalysisResponse(**result)
 
 
-@router.get("/summary/{date}", summary='История продажи')
+@router.get("/summary/{date}", summary="История продажи")
 async def get_summary(
     date: str,
     session: SessionDep,
@@ -75,7 +72,7 @@ async def get_summary(
     return summary
 
 
-@router.get("/summaries", summary='Список продаж')
+@router.get("/summaries", summary="Список продаж")
 async def get_all_summaries(
     session: SessionDep,
     limit: int = 100,
