@@ -1,9 +1,6 @@
-# schemas.py
 from typing import List
 
 from pydantic import BaseModel, Field, field_validator
-
-# ========== Входные схемы ==========
 
 
 class DishSaleInput(BaseModel):
@@ -27,16 +24,6 @@ class DishSaleInput(BaseModel):
             )
         return v
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "dish": "Паста Карбонара",
-                "cost_price": 180,
-                "selling_price": 450,
-                "quantity": 12,
-            }
-        }
-
 
 class SalesRequest(BaseModel):
     """Входной запрос: массив продаж."""
@@ -44,35 +31,6 @@ class SalesRequest(BaseModel):
     sales: List[DishSaleInput] = Field(
         ..., description="Массив продаж за день", min_length=1
     )
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "sales": [
-                    {
-                        "dish": "Паста Карбонара",
-                        "cost_price": 180,
-                        "selling_price": 450,
-                        "quantity": 12,
-                    },
-                    {
-                        "dish": "Цезарь с курицей",
-                        "cost_price": 140,
-                        "selling_price": 390,
-                        "quantity": 8,
-                    },
-                    {
-                        "dish": "Маргарита",
-                        "cost_price": 90,
-                        "selling_price": 320,
-                        "quantity": 25,
-                    },
-                ]
-            }
-        }
-
-
-# ========== Выходные схемы ==========
 
 
 class TopMarginDish(BaseModel):
@@ -113,9 +71,6 @@ class SalesAnalysisResponse(BaseModel):
     suggestions: List[str] = Field(
         ..., description="Рекомендации по улучшению"
     )
-
-
-# ========== Внутренние схемы для БД ==========
 
 
 class DishSaleDB(BaseModel):

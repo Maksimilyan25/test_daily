@@ -1,0 +1,52 @@
+{
+  "sales": [
+    {
+      "dish": "Паста Карбонара",
+      "cost_price": 180,
+      "selling_price": 450,
+      "quantity": 12
+    },
+    {
+      "dish": "Цезарь с курицей",
+      "cost_price": 140,
+      "selling_price": 390,
+      "quantity": 8
+    },
+    {
+      "dish": "Маргарита",
+      "cost_price": 90,
+      "selling_price": 320,
+      "quantity": 25
+    },
+    {
+      "dish": "По-флотски",
+      "cost_price": 110,
+      "selling_price": 120,
+      "quantity": 5
+    },
+    {
+      "dish": "Рис с овощами",
+      "cost_price": 120,
+      "selling_price": 150,
+      "quantity": 10
+    },
+    {
+      "dish": "Стейк Рибай",
+      "cost_price": 450,
+      "selling_price": 1200,
+      "quantity": 3
+    },
+    {
+      "dish": "Куриные крылья",
+      "cost_price": 130,
+      "selling_price": 290,
+      "quantity": 9
+    },
+    {
+      "dish": "Тирамису",
+      "cost_price": 85,
+      "selling_price": 220,
+      "quantity": 11
+    }
+  ]
+}

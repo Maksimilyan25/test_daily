@@ -1,11 +1,8 @@
-# routers/sales.py
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
 
 from database.db import SessionDep
-from models.models import DailySalesSummary
 from repositories.repository import SalesRepository
 from schemas.schemas import SalesAnalysisResponse, SalesRequest
 from services.serivce import SalesService
@@ -35,7 +32,7 @@ def get_sales_service(session: SessionDep) -> SalesService:
 async def analyze_sales(
     request: SalesRequest,
     service: SalesService = Depends(get_sales_service),
-    session: SessionDep = None,  # нужна для коммита
+    session: SessionDep = None,
 ):
     """
     Анализ продаж:
@@ -47,7 +44,6 @@ async def analyze_sales(
     """
     result = await service.analyze_and_save(request.sales)
 
-    # Коммитим все изменения (репозиторий не коммитит сам)
     await session.commit()
 
     return SalesAnalysisResponse(**result)

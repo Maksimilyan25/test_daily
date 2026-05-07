@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import DateTime, Float, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
@@ -21,7 +21,6 @@ class DishSale(Base):
     selling_price: Mapped[float] = mapped_column(Float, nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    # Дополнительные поля для аналитики (пока только структура)
     margin: Mapped[float | None] = mapped_column(Float, nullable=True)
     margin_percent: Mapped[float | None] = mapped_column(Float, nullable=True)
     total_revenue_per_dish: Mapped[float | None] = mapped_column(
@@ -29,13 +28,13 @@ class DishSale(Base):
     )
 
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, nullable=False
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
     )
 
     def __repr__(self) -> str:
-        return f"""
-        <DishSale(id={self.id}, dish={self.dish_name}, qty={self.quantity})>
-        """
+        return f"<DishSale(id={self.id}, dish={self.dish_name}, qty={self.quantity})>"
 
 
 class DailySalesSummary(Base):
@@ -47,7 +46,10 @@ class DailySalesSummary(Base):
         Integer, primary_key=True, autoincrement=True
     )
     sale_date: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, unique=True, index=True
+        DateTime(timezone=True),
+        nullable=False,
+        unique=True,
+        index=True
     )
 
     total_revenue: Mapped[float] = mapped_column(
@@ -60,22 +62,17 @@ class DailySalesSummary(Base):
         Float, nullable=False, default=0.0
     )
 
-    top_dishes_json: Mapped[str | None] = mapped_column(
-        Text, nullable=True
-    )  # JSON строка с топ блюдами
-    loss_making_dishes_json: Mapped[str | None] = mapped_column(
-        Text, nullable=True
-    )  # JSON строка с убыточными
-    suggestions_json: Mapped[str | None] = mapped_column(
-        Text, nullable=True
-    )  # JSON строка с рекомендациями
+    top_dishes_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    loss_making_dishes_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    suggestions_json: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, nullable=False
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
     )
 
     def __repr__(self) -> str:
         return f"""
-        <DailySalesSummary(date={self.sale_date},
-         revenue={self.total_revenue})>
+        <DailySalesSummary(date={self.sale_date}, revenue={self.total_revenue})>
     """

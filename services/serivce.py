@@ -1,8 +1,6 @@
-# services/sales_service.py
 from datetime import datetime
 from typing import List, Tuple
 
-from models.models import DailySalesSummary
 from repositories.repository import SalesRepository
 from schemas.schemas import DishSaleInput, LossMakingDish, TopMarginDish
 
