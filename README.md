@@ -4,16 +4,15 @@ API для анализа ресторанных продаж: расчёт ма
 
 ##  Запуск через Docker
 
-```bash
 # Клонировать репозиторий
-git clone <repo-url>
-cd app
+git clone git@github.com:Maksimilyan25/test_daily.git
+cd test_daily
 
 # Запустить контейнеры
 docker compose up -d --build
 
 # Проверить логи
-docker logs app-app-1
+docker logs test_daily-app-1
 
 API будет доступно: http://localhost:8000/docs
 
