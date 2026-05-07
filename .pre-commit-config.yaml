@@ -1,0 +1,58 @@
+exclude: '^(docs/|tests/|migrations/|benchmarks/|notebooks/|app/tests/|backend/migrations/)'
+default_stages: [pre-commit]
+
+repos:
+  # Базовые утилиты от pre-commit
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: debug-statements
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-merge-conflict
+
+  # Black — автоформатирование кода
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        args: ["--line-length=88"]
+        files: '^app/.*\.py$'
+
+  # isort — сортировка импортов
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--line-length=88"]
+        files: '^app/.*\.py$'
+
+  # flake8 — линтер кода
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-simplify
+        args: [
+          "--max-line-length=88",
+          "--extend-ignore=E501,F401,E266,F841,B008,SIM102,SIM910,F821",
+        ]
+        files: '^app/.*\.py$'
+
+  # pyupgrade — обновление синтаксиса
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        args: ["--py312-plus"]
+        files: '^app/.*\.py$'
